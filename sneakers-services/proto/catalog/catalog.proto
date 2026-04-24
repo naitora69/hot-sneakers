@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package catalog;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "hotsneakers/proto/catalog";
+
+message Sneaker {
+    int64 id = 1;
+    string brand = 2;
+    string model = 3;
+}
+message GetAllSneakersRequest{
+
+}
+message GetAllSneakersReply {
+    repeated Sneaker sneakers = 1;
+}
+
+message GetSneakerByIDRequest {
+    int64 id = 1;
+}
+service Catalog {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+  rpc GetAllSneakers(GetAllSneakersRequest) returns (GetAllSneakersReply) {}
+  rpc GetSneakerByID(GetSneakerByIDRequest) returns (Sneaker) {}
+}

@@ -1,0 +1,78 @@
+services:
+ 
+  catalog:
+    image: catalog:latest
+    build: 
+      context: sneakers-services
+      dockerfile: Dockerfile.catalog
+    container_name: catalog
+    restart: unless-stopped
+    ports: 
+    - 38083:8080
+    volumes:
+        - ./sneakers-services/catalog/config.yaml:/config.yaml
+    environment:
+      - CATALOG_ADDRESS=:8080
+      - DB_ADDRESS=postgres://postgres:password@postgres:5432/postgres
+    depends_on:
+        postgres:
+          condition: service_healthy
+        redis:
+          condition: service_healthy
+
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: unless-stopped
+    ports:
+      - 18888:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@test.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DISABLE_POSTFIX: "true"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+  redis:
+    image: redis:8.6.2
+    container_name: redis
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=password
+      - REDIS_USER=admin
+      - REDIS_USER_PASSWORD=password
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "password", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    
+volumes:
+  postgres:
+  pgadmin:
+  redis:
