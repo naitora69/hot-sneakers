@@ -14,6 +14,8 @@ services:
     environment:
       - CATALOG_ADDRESS=:8080
       - DB_ADDRESS=postgres://postgres:password@postgres:5432/postgres
+      - REDIS_ADDRESS=redis://:password@redis:6379/0
+      - CACHE_TTL=3h
     depends_on:
         postgres:
           condition: service_healthy
@@ -57,10 +59,7 @@ services:
     container_name: redis
     ports:
       - 6379:6379
-    environment:
-      - REDIS_PASSWORD=password
-      - REDIS_USER=admin
-      - REDIS_USER_PASSWORD=password
+    command: redis-server --requirepass password
     volumes:
       - redis:/data
     healthcheck:
@@ -71,8 +70,20 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
-    
+
+  redis-insight:
+    image: redis/redisinsight:3.4
+    container_name: redis-insight
+    ports:
+      - 5540:5540
+    volumes:
+      - redisinsight:/data
+    depends_on:
+      - redis
+
+
 volumes:
   postgres:
   pgadmin:
   redis:
+  redisinsight:

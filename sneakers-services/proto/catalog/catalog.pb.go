@@ -82,6 +82,198 @@ func (x *Sneaker) GetModel() string {
 	return ""
 }
 
+type CreateSneakerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Brand         string                 `protobuf:"bytes,1,opt,name=brand,proto3" json:"brand,omitempty"`
+	Model         string                 `protobuf:"bytes,2,opt,name=model,proto3" json:"model,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateSneakerRequest) Reset() {
+	*x = CreateSneakerRequest{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateSneakerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateSneakerRequest) ProtoMessage() {}
+
+func (x *CreateSneakerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateSneakerRequest.ProtoReflect.Descriptor instead.
+func (*CreateSneakerRequest) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateSneakerRequest) GetBrand() string {
+	if x != nil {
+		return x.Brand
+	}
+	return ""
+}
+
+func (x *CreateSneakerRequest) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+type CreateSneakerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateSneakerResponse) Reset() {
+	*x = CreateSneakerResponse{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateSneakerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateSneakerResponse) ProtoMessage() {}
+
+func (x *CreateSneakerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateSneakerResponse.ProtoReflect.Descriptor instead.
+func (*CreateSneakerResponse) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CreateSneakerResponse) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type UpdateSneakerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Brand         string                 `protobuf:"bytes,2,opt,name=brand,proto3" json:"brand,omitempty"`
+	Model         string                 `protobuf:"bytes,3,opt,name=model,proto3" json:"model,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateSneakerRequest) Reset() {
+	*x = UpdateSneakerRequest{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateSneakerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSneakerRequest) ProtoMessage() {}
+
+func (x *UpdateSneakerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSneakerRequest.ProtoReflect.Descriptor instead.
+func (*UpdateSneakerRequest) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UpdateSneakerRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateSneakerRequest) GetBrand() string {
+	if x != nil {
+		return x.Brand
+	}
+	return ""
+}
+
+func (x *UpdateSneakerRequest) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+type UpdateSneakerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateSneakerResponse) Reset() {
+	*x = UpdateSneakerResponse{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateSneakerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSneakerResponse) ProtoMessage() {}
+
+func (x *UpdateSneakerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSneakerResponse.ProtoReflect.Descriptor instead.
+func (*UpdateSneakerResponse) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{4}
+}
+
 type GetAllSneakersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -90,7 +282,7 @@ type GetAllSneakersRequest struct {
 
 func (x *GetAllSneakersRequest) Reset() {
 	*x = GetAllSneakersRequest{}
-	mi := &file_proto_catalog_catalog_proto_msgTypes[1]
+	mi := &file_proto_catalog_catalog_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -102,7 +294,7 @@ func (x *GetAllSneakersRequest) String() string {
 func (*GetAllSneakersRequest) ProtoMessage() {}
 
 func (x *GetAllSneakersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_catalog_catalog_proto_msgTypes[1]
+	mi := &file_proto_catalog_catalog_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -115,31 +307,31 @@ func (x *GetAllSneakersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllSneakersRequest.ProtoReflect.Descriptor instead.
 func (*GetAllSneakersRequest) Descriptor() ([]byte, []int) {
-	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{1}
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{5}
 }
 
-type GetAllSneakersReply struct {
+type GetAllSneakersResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Sneakers      []*Sneaker             `protobuf:"bytes,1,rep,name=sneakers,proto3" json:"sneakers,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetAllSneakersReply) Reset() {
-	*x = GetAllSneakersReply{}
-	mi := &file_proto_catalog_catalog_proto_msgTypes[2]
+func (x *GetAllSneakersResponse) Reset() {
+	*x = GetAllSneakersResponse{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetAllSneakersReply) String() string {
+func (x *GetAllSneakersResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAllSneakersReply) ProtoMessage() {}
+func (*GetAllSneakersResponse) ProtoMessage() {}
 
-func (x *GetAllSneakersReply) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_catalog_catalog_proto_msgTypes[2]
+func (x *GetAllSneakersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -150,12 +342,12 @@ func (x *GetAllSneakersReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAllSneakersReply.ProtoReflect.Descriptor instead.
-func (*GetAllSneakersReply) Descriptor() ([]byte, []int) {
-	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{2}
+// Deprecated: Use GetAllSneakersResponse.ProtoReflect.Descriptor instead.
+func (*GetAllSneakersResponse) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *GetAllSneakersReply) GetSneakers() []*Sneaker {
+func (x *GetAllSneakersResponse) GetSneakers() []*Sneaker {
 	if x != nil {
 		return x.Sneakers
 	}
@@ -171,7 +363,7 @@ type GetSneakerByIDRequest struct {
 
 func (x *GetSneakerByIDRequest) Reset() {
 	*x = GetSneakerByIDRequest{}
-	mi := &file_proto_catalog_catalog_proto_msgTypes[3]
+	mi := &file_proto_catalog_catalog_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -183,7 +375,7 @@ func (x *GetSneakerByIDRequest) String() string {
 func (*GetSneakerByIDRequest) ProtoMessage() {}
 
 func (x *GetSneakerByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_catalog_catalog_proto_msgTypes[3]
+	mi := &file_proto_catalog_catalog_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -196,7 +388,7 @@ func (x *GetSneakerByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSneakerByIDRequest.ProtoReflect.Descriptor instead.
 func (*GetSneakerByIDRequest) Descriptor() ([]byte, []int) {
-	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{3}
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetSneakerByIDRequest) GetId() int64 {
@@ -204,6 +396,50 @@ func (x *GetSneakerByIDRequest) GetId() int64 {
 		return x.Id
 	}
 	return 0
+}
+
+type GetSneakerByIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Sneaker       *Sneaker               `protobuf:"bytes,1,opt,name=sneaker,proto3" json:"sneaker,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSneakerByIDResponse) Reset() {
+	*x = GetSneakerByIDResponse{}
+	mi := &file_proto_catalog_catalog_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSneakerByIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSneakerByIDResponse) ProtoMessage() {}
+
+func (x *GetSneakerByIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_catalog_catalog_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSneakerByIDResponse.ProtoReflect.Descriptor instead.
+func (*GetSneakerByIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_catalog_catalog_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetSneakerByIDResponse) GetSneaker() *Sneaker {
+	if x != nil {
+		return x.Sneaker
+	}
+	return nil
 }
 
 var File_proto_catalog_catalog_proto protoreflect.FileDescriptor
@@ -214,16 +450,30 @@ const file_proto_catalog_catalog_proto_rawDesc = "" +
 	"\aSneaker\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05brand\x18\x02 \x01(\tR\x05brand\x12\x14\n" +
+	"\x05model\x18\x03 \x01(\tR\x05model\"B\n" +
+	"\x14CreateSneakerRequest\x12\x14\n" +
+	"\x05brand\x18\x01 \x01(\tR\x05brand\x12\x14\n" +
+	"\x05model\x18\x02 \x01(\tR\x05model\"'\n" +
+	"\x15CreateSneakerResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"R\n" +
+	"\x14UpdateSneakerRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
+	"\x05brand\x18\x02 \x01(\tR\x05brand\x12\x14\n" +
 	"\x05model\x18\x03 \x01(\tR\x05model\"\x17\n" +
-	"\x15GetAllSneakersRequest\"C\n" +
-	"\x13GetAllSneakersReply\x12,\n" +
+	"\x15UpdateSneakerResponse\"\x17\n" +
+	"\x15GetAllSneakersRequest\"F\n" +
+	"\x16GetAllSneakersResponse\x12,\n" +
 	"\bsneakers\x18\x01 \x03(\v2\x10.catalog.SneakerR\bsneakers\"'\n" +
 	"\x15GetSneakerByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id2\xdb\x01\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"D\n" +
+	"\x16GetSneakerByIDResponse\x12*\n" +
+	"\asneaker\x18\x01 \x01(\v2\x10.catalog.SneakerR\asneaker2\x91\x03\n" +
 	"\aCatalog\x128\n" +
-	"\x04Ping\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12P\n" +
-	"\x0eGetAllSneakers\x12\x1e.catalog.GetAllSneakersRequest\x1a\x1c.catalog.GetAllSneakersReply\"\x00\x12D\n" +
-	"\x0eGetSneakerByID\x12\x1e.catalog.GetSneakerByIDRequest\x1a\x10.catalog.Sneaker\"\x00B\x1bZ\x19hotsneakers/proto/catalogb\x06proto3"
+	"\x04Ping\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12S\n" +
+	"\x0eGetAllSneakers\x12\x1e.catalog.GetAllSneakersRequest\x1a\x1f.catalog.GetAllSneakersResponse\"\x00\x12S\n" +
+	"\x0eGetSneakerByID\x12\x1e.catalog.GetSneakerByIDRequest\x1a\x1f.catalog.GetSneakerByIDResponse\"\x00\x12P\n" +
+	"\rCreateSneaker\x12\x1d.catalog.CreateSneakerRequest\x1a\x1e.catalog.CreateSneakerResponse\"\x00\x12P\n" +
+	"\rUpdateSneaker\x12\x1d.catalog.UpdateSneakerRequest\x1a\x1e.catalog.UpdateSneakerResponse\"\x00B\x1bZ\x19hotsneakers/proto/catalogb\x06proto3"
 
 var (
 	file_proto_catalog_catalog_proto_rawDescOnce sync.Once
@@ -237,27 +487,37 @@ func file_proto_catalog_catalog_proto_rawDescGZIP() []byte {
 	return file_proto_catalog_catalog_proto_rawDescData
 }
 
-var file_proto_catalog_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_catalog_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_proto_catalog_catalog_proto_goTypes = []any{
-	(*Sneaker)(nil),               // 0: catalog.Sneaker
-	(*GetAllSneakersRequest)(nil), // 1: catalog.GetAllSneakersRequest
-	(*GetAllSneakersReply)(nil),   // 2: catalog.GetAllSneakersReply
-	(*GetSneakerByIDRequest)(nil), // 3: catalog.GetSneakerByIDRequest
-	(*emptypb.Empty)(nil),         // 4: google.protobuf.Empty
+	(*Sneaker)(nil),                // 0: catalog.Sneaker
+	(*CreateSneakerRequest)(nil),   // 1: catalog.CreateSneakerRequest
+	(*CreateSneakerResponse)(nil),  // 2: catalog.CreateSneakerResponse
+	(*UpdateSneakerRequest)(nil),   // 3: catalog.UpdateSneakerRequest
+	(*UpdateSneakerResponse)(nil),  // 4: catalog.UpdateSneakerResponse
+	(*GetAllSneakersRequest)(nil),  // 5: catalog.GetAllSneakersRequest
+	(*GetAllSneakersResponse)(nil), // 6: catalog.GetAllSneakersResponse
+	(*GetSneakerByIDRequest)(nil),  // 7: catalog.GetSneakerByIDRequest
+	(*GetSneakerByIDResponse)(nil), // 8: catalog.GetSneakerByIDResponse
+	(*emptypb.Empty)(nil),          // 9: google.protobuf.Empty
 }
 var file_proto_catalog_catalog_proto_depIdxs = []int32{
-	0, // 0: catalog.GetAllSneakersReply.sneakers:type_name -> catalog.Sneaker
-	4, // 1: catalog.Catalog.Ping:input_type -> google.protobuf.Empty
-	1, // 2: catalog.Catalog.GetAllSneakers:input_type -> catalog.GetAllSneakersRequest
-	3, // 3: catalog.Catalog.GetSneakerByID:input_type -> catalog.GetSneakerByIDRequest
-	4, // 4: catalog.Catalog.Ping:output_type -> google.protobuf.Empty
-	2, // 5: catalog.Catalog.GetAllSneakers:output_type -> catalog.GetAllSneakersReply
-	0, // 6: catalog.Catalog.GetSneakerByID:output_type -> catalog.Sneaker
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: catalog.GetAllSneakersResponse.sneakers:type_name -> catalog.Sneaker
+	0, // 1: catalog.GetSneakerByIDResponse.sneaker:type_name -> catalog.Sneaker
+	9, // 2: catalog.Catalog.Ping:input_type -> google.protobuf.Empty
+	5, // 3: catalog.Catalog.GetAllSneakers:input_type -> catalog.GetAllSneakersRequest
+	7, // 4: catalog.Catalog.GetSneakerByID:input_type -> catalog.GetSneakerByIDRequest
+	1, // 5: catalog.Catalog.CreateSneaker:input_type -> catalog.CreateSneakerRequest
+	3, // 6: catalog.Catalog.UpdateSneaker:input_type -> catalog.UpdateSneakerRequest
+	9, // 7: catalog.Catalog.Ping:output_type -> google.protobuf.Empty
+	6, // 8: catalog.Catalog.GetAllSneakers:output_type -> catalog.GetAllSneakersResponse
+	8, // 9: catalog.Catalog.GetSneakerByID:output_type -> catalog.GetSneakerByIDResponse
+	2, // 10: catalog.Catalog.CreateSneaker:output_type -> catalog.CreateSneakerResponse
+	4, // 11: catalog.Catalog.UpdateSneaker:output_type -> catalog.UpdateSneakerResponse
+	7, // [7:12] is the sub-list for method output_type
+	2, // [2:7] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_catalog_catalog_proto_init() }
@@ -271,7 +531,7 @@ func file_proto_catalog_catalog_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_catalog_catalog_proto_rawDesc), len(file_proto_catalog_catalog_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

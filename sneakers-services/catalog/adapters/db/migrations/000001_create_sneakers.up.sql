@@ -1,5 +1,5 @@
 CREATE TABLE sneakers (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     brand VARCHAR(255),
     model VARCHAR(255)
 );

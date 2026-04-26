@@ -2,15 +2,17 @@ package config
 
 import (
 	"log"
+	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
-	LogLevel       string `yaml:"log_level" env:"LOG_LEVEL" env-default:"DEBUG"`
-	CatalogAddress string `yaml:"catalog_address" env:"CATALOG_ADDRESS" end-default:"localhost:80"`
-	DBAddress      string `yaml:"db_address" env:"DB_ADDRESS" env-default:"localhost:82"`
-	RedisAddress   string `yaml:"redis_address" env:"REDIS_ADDRESS" env-default:"localhost:6379"`
+	LogLevel       string        `yaml:"log_level" env:"LOG_LEVEL" env-default:"DEBUG"`
+	CatalogAddress string        `yaml:"catalog_address" env:"CATALOG_ADDRESS" end-default:"localhost:80"`
+	DBAddress      string        `yaml:"db_address" env:"DB_ADDRESS" env-default:"localhost:82"`
+	RedisAddress   string        `yaml:"redis_address" env:"REDIS_ADDRESS" env-default:"localhost:6379"`
+	TTLRedisCache  time.Duration `yaml:"cache_ttl" end:"CACHE_TTL" env-default:"3h"`
 }
 
 func MustLoad(configPath string) Config {

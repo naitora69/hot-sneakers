@@ -7,22 +7,54 @@ import "google/protobuf/empty.proto";
 option go_package = "hotsneakers/proto/catalog";
 
 message Sneaker {
-    int64 id = 1;
-    string brand = 2;
-    string model = 3;
+  int64 id = 1;
+  string brand = 2;
+  string model = 3;
 }
-message GetAllSneakersRequest{
+
+message CreateSneakerRequest {
+  string brand = 1;
+  string model = 2;
+}
+
+message CreateSneakerResponse{
+  int64 id = 1;
+}
+
+message UpdateSneakerRequest {
+  int64 id = 1;
+  string brand = 2;
+  string model = 3;
+}
+
+message UpdateSneakerResponse{
 
 }
-message GetAllSneakersReply {
-    repeated Sneaker sneakers = 1;
+
+message GetAllSneakersRequest {
+
+}
+
+message GetAllSneakersResponse {
+  repeated Sneaker sneakers = 1;
 }
 
 message GetSneakerByIDRequest {
-    int64 id = 1;
+  int64 id = 1;
 }
+
+message GetSneakerByIDResponse {
+  Sneaker sneaker = 1;
+}
+
 service Catalog {
   rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {}
-  rpc GetAllSneakers(GetAllSneakersRequest) returns (GetAllSneakersReply) {}
-  rpc GetSneakerByID(GetSneakerByIDRequest) returns (Sneaker) {}
+
+  rpc GetAllSneakers(GetAllSneakersRequest) returns (GetAllSneakersResponse) {}
+
+  rpc GetSneakerByID(GetSneakerByIDRequest) returns (GetSneakerByIDResponse) {}
+
+  rpc CreateSneaker(CreateSneakerRequest) returns (CreateSneakerResponse) {}
+
+  rpc UpdateSneaker(UpdateSneakerRequest) returns (UpdateSneakerResponse) {}
 }

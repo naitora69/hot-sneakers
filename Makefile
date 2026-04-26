@@ -12,11 +12,12 @@ clean:
 	${container_runtime} compose down -v
 
 lint:
-	make -C search-services lint
+	make -C sneakers-services lint
 
 proto:
-	make -C search-services protobuf
-
+	make -C sneakers-services protobuf
+fmt: 
+	make -C sneakers-services fmt
 tools:
 	go install github.com/yoheimuta/protolint/cmd/protolint@latest
 	go install golang.org/x/tools/cmd/goimports@latest

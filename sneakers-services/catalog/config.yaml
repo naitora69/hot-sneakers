@@ -1,2 +1,4 @@
 log_level: DEBUG
 db_address: localhost:1234
+cache_ttl: 3h
+redis_address: redis://:password@redis:6379/0

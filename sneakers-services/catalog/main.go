@@ -4,16 +4,17 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log/slog"
+	"net"
+	"os"
+	"os/signal"
+
 	"hotsneakers/catalog/adapters/db"
 	catalog "hotsneakers/catalog/adapters/grpc"
 	"hotsneakers/catalog/config"
 	"hotsneakers/catalog/core"
 	"hotsneakers/closers"
 	catalogpb "hotsneakers/proto/catalog"
-	"log/slog"
-	"net"
-	"os"
-	"os/signal"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -40,16 +41,24 @@ func run(cfg config.Config, log *slog.Logger) error {
 	log.Debug("debug messages are enabled")
 
 	// database adapter
-	storage, err := db.New(log, cfg.DBAddress)
+	pgRepo, err := db.New(log, cfg.DBAddress)
 	if err != nil {
 		return fmt.Errorf("failed to connect to db: %v", err)
 	}
-	if err := storage.Migrate(); err != nil {
+	if err := pgRepo.Migrate(); err != nil {
 		return fmt.Errorf("failed to migrate db: %v", err)
 	}
-	defer closers.CloseOrLog(storage.Conn, log)
+	defer closers.CloseOrLog(pgRepo.Conn, log)
 
-	cataloger, err := core.NewService(log, storage)
+	// redis cache adapter
+	repo, err := db.NewRedisCache(cfg.RedisAddress, pgRepo, cfg.TTLRedisCache, log)
+	if err != nil {
+		return fmt.Errorf("failed to connect to redis: %v", err)
+	}
+	defer closers.CloseOrLog(repo.RDB, log)
+
+	// create catalog service
+	cataloger, err := core.NewService(log, repo)
 	if err != nil {
 		return fmt.Errorf("failed to create catalog service: %v", err)
 	}

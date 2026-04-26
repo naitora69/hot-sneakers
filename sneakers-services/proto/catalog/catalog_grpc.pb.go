@@ -23,6 +23,8 @@ const (
 	Catalog_Ping_FullMethodName           = "/catalog.Catalog/Ping"
 	Catalog_GetAllSneakers_FullMethodName = "/catalog.Catalog/GetAllSneakers"
 	Catalog_GetSneakerByID_FullMethodName = "/catalog.Catalog/GetSneakerByID"
+	Catalog_CreateSneaker_FullMethodName  = "/catalog.Catalog/CreateSneaker"
+	Catalog_UpdateSneaker_FullMethodName  = "/catalog.Catalog/UpdateSneaker"
 )
 
 // CatalogClient is the client API for Catalog service.
@@ -30,8 +32,10 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CatalogClient interface {
 	Ping(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetAllSneakers(ctx context.Context, in *GetAllSneakersRequest, opts ...grpc.CallOption) (*GetAllSneakersReply, error)
-	GetSneakerByID(ctx context.Context, in *GetSneakerByIDRequest, opts ...grpc.CallOption) (*Sneaker, error)
+	GetAllSneakers(ctx context.Context, in *GetAllSneakersRequest, opts ...grpc.CallOption) (*GetAllSneakersResponse, error)
+	GetSneakerByID(ctx context.Context, in *GetSneakerByIDRequest, opts ...grpc.CallOption) (*GetSneakerByIDResponse, error)
+	CreateSneaker(ctx context.Context, in *CreateSneakerRequest, opts ...grpc.CallOption) (*CreateSneakerResponse, error)
+	UpdateSneaker(ctx context.Context, in *UpdateSneakerRequest, opts ...grpc.CallOption) (*UpdateSneakerResponse, error)
 }
 
 type catalogClient struct {
@@ -52,9 +56,9 @@ func (c *catalogClient) Ping(ctx context.Context, in *emptypb.Empty, opts ...grp
 	return out, nil
 }
 
-func (c *catalogClient) GetAllSneakers(ctx context.Context, in *GetAllSneakersRequest, opts ...grpc.CallOption) (*GetAllSneakersReply, error) {
+func (c *catalogClient) GetAllSneakers(ctx context.Context, in *GetAllSneakersRequest, opts ...grpc.CallOption) (*GetAllSneakersResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAllSneakersReply)
+	out := new(GetAllSneakersResponse)
 	err := c.cc.Invoke(ctx, Catalog_GetAllSneakers_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -62,10 +66,30 @@ func (c *catalogClient) GetAllSneakers(ctx context.Context, in *GetAllSneakersRe
 	return out, nil
 }
 
-func (c *catalogClient) GetSneakerByID(ctx context.Context, in *GetSneakerByIDRequest, opts ...grpc.CallOption) (*Sneaker, error) {
+func (c *catalogClient) GetSneakerByID(ctx context.Context, in *GetSneakerByIDRequest, opts ...grpc.CallOption) (*GetSneakerByIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Sneaker)
+	out := new(GetSneakerByIDResponse)
 	err := c.cc.Invoke(ctx, Catalog_GetSneakerByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catalogClient) CreateSneaker(ctx context.Context, in *CreateSneakerRequest, opts ...grpc.CallOption) (*CreateSneakerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateSneakerResponse)
+	err := c.cc.Invoke(ctx, Catalog_CreateSneaker_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *catalogClient) UpdateSneaker(ctx context.Context, in *UpdateSneakerRequest, opts ...grpc.CallOption) (*UpdateSneakerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateSneakerResponse)
+	err := c.cc.Invoke(ctx, Catalog_UpdateSneaker_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,8 +101,10 @@ func (c *catalogClient) GetSneakerByID(ctx context.Context, in *GetSneakerByIDRe
 // for forward compatibility.
 type CatalogServer interface {
 	Ping(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
-	GetAllSneakers(context.Context, *GetAllSneakersRequest) (*GetAllSneakersReply, error)
-	GetSneakerByID(context.Context, *GetSneakerByIDRequest) (*Sneaker, error)
+	GetAllSneakers(context.Context, *GetAllSneakersRequest) (*GetAllSneakersResponse, error)
+	GetSneakerByID(context.Context, *GetSneakerByIDRequest) (*GetSneakerByIDResponse, error)
+	CreateSneaker(context.Context, *CreateSneakerRequest) (*CreateSneakerResponse, error)
+	UpdateSneaker(context.Context, *UpdateSneakerRequest) (*UpdateSneakerResponse, error)
 	mustEmbedUnimplementedCatalogServer()
 }
 
@@ -92,11 +118,17 @@ type UnimplementedCatalogServer struct{}
 func (UnimplementedCatalogServer) Ping(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Ping not implemented")
 }
-func (UnimplementedCatalogServer) GetAllSneakers(context.Context, *GetAllSneakersRequest) (*GetAllSneakersReply, error) {
+func (UnimplementedCatalogServer) GetAllSneakers(context.Context, *GetAllSneakersRequest) (*GetAllSneakersResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAllSneakers not implemented")
 }
-func (UnimplementedCatalogServer) GetSneakerByID(context.Context, *GetSneakerByIDRequest) (*Sneaker, error) {
+func (UnimplementedCatalogServer) GetSneakerByID(context.Context, *GetSneakerByIDRequest) (*GetSneakerByIDResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSneakerByID not implemented")
+}
+func (UnimplementedCatalogServer) CreateSneaker(context.Context, *CreateSneakerRequest) (*CreateSneakerResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateSneaker not implemented")
+}
+func (UnimplementedCatalogServer) UpdateSneaker(context.Context, *UpdateSneakerRequest) (*UpdateSneakerResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateSneaker not implemented")
 }
 func (UnimplementedCatalogServer) mustEmbedUnimplementedCatalogServer() {}
 func (UnimplementedCatalogServer) testEmbeddedByValue()                 {}
@@ -173,6 +205,42 @@ func _Catalog_GetSneakerByID_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Catalog_CreateSneaker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSneakerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).CreateSneaker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Catalog_CreateSneaker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).CreateSneaker(ctx, req.(*CreateSneakerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Catalog_UpdateSneaker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSneakerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).UpdateSneaker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Catalog_UpdateSneaker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).UpdateSneaker(ctx, req.(*UpdateSneakerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Catalog_ServiceDesc is the grpc.ServiceDesc for Catalog service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -191,6 +259,14 @@ var Catalog_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSneakerByID",
 			Handler:    _Catalog_GetSneakerByID_Handler,
+		},
+		{
+			MethodName: "CreateSneaker",
+			Handler:    _Catalog_CreateSneaker_Handler,
+		},
+		{
+			MethodName: "UpdateSneaker",
+			Handler:    _Catalog_UpdateSneaker_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

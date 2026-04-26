@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+
 	"hotsneakers/catalog/core"
 	catalogpb "hotsneakers/proto/catalog"
 
@@ -25,7 +26,7 @@ func (s Server) Ping(_ context.Context, _ *emptypb.Empty) (*emptypb.Empty, error
 	return nil, nil
 }
 
-func (s Server) GetAllSneakers(ctx context.Context, in *catalogpb.GetAllSneakersRequest) (*catalogpb.GetAllSneakersReply, error) {
+func (s Server) GetAllSneakers(ctx context.Context, in *catalogpb.GetAllSneakersRequest) (*catalogpb.GetAllSneakersResponse, error) {
 	sneakersFromService, err := s.service.GetAllSneakers(ctx)
 	if err != nil {
 		return nil, status.Error(codes.Internal, "internal server error")
@@ -41,23 +42,57 @@ func (s Server) GetAllSneakers(ctx context.Context, in *catalogpb.GetAllSneakers
 		})
 	}
 
-	res := &catalogpb.GetAllSneakersReply{
+	res := &catalogpb.GetAllSneakersResponse{
 		Sneakers: sneakers,
 	}
 
 	return res, nil
 }
-func (s Server) GetSneakerByID(ctx context.Context, in *catalogpb.GetSneakerByIDRequest) (*catalogpb.Sneaker, error) {
+
+func (s Server) GetSneakerByID(ctx context.Context, in *catalogpb.GetSneakerByIDRequest) (*catalogpb.GetSneakerByIDResponse, error) {
 	sneakerFromService, err := s.service.GetSneakerByID(ctx, int(in.Id))
 	if err != nil {
 		return nil, status.Error(codes.Internal, "internal server error")
 	}
 
-	res := &catalogpb.Sneaker{
+	sneaker := &catalogpb.Sneaker{
 		Id:    int64(sneakerFromService.ID),
 		Brand: sneakerFromService.Brand,
 		Model: sneakerFromService.Model,
 	}
 
-	return res, nil
+	return &catalogpb.GetSneakerByIDResponse{
+		Sneaker: sneaker,
+	}, nil
+}
+
+func (s Server) CreateSneaker(ctx context.Context, in *catalogpb.CreateSneakerRequest) (*catalogpb.CreateSneakerResponse, error) {
+	sneaker := core.CreateSneaker{
+		Brand: in.Brand,
+		Model: in.Model,
+	}
+
+	id, err := s.service.CreateSneaker(ctx, sneaker)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "internal server error")
+	}
+
+	return &catalogpb.CreateSneakerResponse{
+		Id: id,
+	}, nil
+}
+
+func (s Server) UpdateSneaker(ctx context.Context, in *catalogpb.UpdateSneakerRequest) (*catalogpb.UpdateSneakerResponse, error) {
+	resp := core.UpdateSneaker{
+		ID:    in.Id,
+		Brand: in.Brand,
+		Model: in.Model,
+	}
+
+	err := s.service.UpdateSneaker(ctx, resp)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "internal server error")
+	}
+
+	return &catalogpb.UpdateSneakerResponse{}, nil
 }
