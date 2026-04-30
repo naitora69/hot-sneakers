@@ -7,19 +7,19 @@ ENV PATH="$PATH:$(go env GOPATH)/bin"
 
 COPY go.mod go.sum /src/
 COPY proto /src/proto
-COPY catalog /src/catalog
+COPY auction /src/auction
 COPY closers /src/closers
 
 RUN cd /src && \
     protoc --go_out=.      --go_opt=paths=source_relative \
     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
-    proto/catalog/catalog.proto
+    proto/auction/auction.proto
 
 ENV CGO_ENABLED=0
-RUN cd /src && go build -o /catalog catalog/main.go
+RUN cd /src && go build -o /auction auction/main.go
 
 FROM alpine:3.20
 
-COPY --from=build /catalog /catalog
+COPY --from=build /auction /auction
 
-ENTRYPOINT [ "/catalog" ]
+ENTRYPOINT [ "/auction" ]
