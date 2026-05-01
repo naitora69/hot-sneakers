@@ -1,0 +1,16 @@
+FROM golang:1.25 AS build
+
+ENV PATH="$PATH:$(go env GOPATH)/bin"
+
+COPY go.mod go.sum /src/
+COPY notification /src/notification
+COPY closers /src/closers
+
+ENV CGO_ENABLED=0
+RUN cd /src && go build -o /notification notification/main.go
+
+FROM alpine:3.20
+
+COPY --from=build /notification /notification
+
+ENTRYPOINT [ "/notification" ]
