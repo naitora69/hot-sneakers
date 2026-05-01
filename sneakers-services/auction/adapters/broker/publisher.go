@@ -34,3 +34,7 @@ func (b Broker) PublishBidPlaced(ctx context.Context, bid core.Bid) error {
 
 	return b.Conn.Publish(subject, data)
 }
+func (b Broker) Close() error {
+	b.Conn.Close()
+	return nil
+}

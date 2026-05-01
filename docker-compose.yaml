@@ -1,4 +1,23 @@
 services:
+  api:
+    image: api:latest
+    build: 
+      context: sneakers-services
+      dockerfile: Dockerfile.api
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - 38080:8080
+    volumes:
+      - ./sneakers-services/api/config.yaml:/config.yaml
+    environment:
+      - API_ADDRESS=:8080
+      - API_TIMEOUT=15s
+      - CATALOG_ADDRESS=catalog:8080
+      - AUCTION_ADDRESS=auction:8080
+    depends_on:
+      - catalog
+      - auction
   catalog:
     image: catalog:latest
     build: 
@@ -34,25 +53,28 @@ services:
         - ./sneakers-services/auction/config.yaml:/config.yaml
     environment:
       - AUCTION_ADDRESS=:8080
-      - NATS_ADDRESS=:nats://nats:4222
+      - NATS_ADDRESS=nats://nats:4222
       - DB_ADDRESS=postgres://postgres:password@postgres:5432/auction_db?sslmode=disable
     depends_on:
         postgres:
           condition: service_healthy
         nats:
-        condition: service_started
+          condition: service_started
 
   notification_service:
     image: notification:latest
     build: 
       context: sneakers-services
       dockerfile: Dockerfile.notification
-    container_name: auction
+    container_name: notification_service
     restart: unless-stopped
     ports: 
-    - 38083:8080
+    - 38084:8080
+    volumes:
+        - ./sneakers-services/notification/config.yaml:/config.yaml
     environment:
-    - NATS_ADDRESS=:nats://nats:4222
+      - NATS_ADDRESS=nats://nats:4222
+      - WEBSOCKET_ADDRESS:8080
     depends_on:
       auction:
         condition: service_started

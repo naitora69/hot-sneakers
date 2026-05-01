@@ -6,14 +6,16 @@ import (
 )
 
 type Service struct {
-	log *slog.Logger
-	db  DB
+	log    *slog.Logger
+	db     DB
+	broker EventPublisher
 }
 
-func NewService(log *slog.Logger, db DB) *Service {
+func NewService(log *slog.Logger, db DB, broker EventPublisher) *Service {
 	return &Service{
-		log: log,
-		db:  db,
+		log:    log,
+		db:     db,
+		broker: broker,
 	}
 }
 

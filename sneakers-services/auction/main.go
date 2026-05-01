@@ -1,14 +1,24 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log/slog"
+	"net"
 	"os"
+	"os/signal"
 
+	"hotsneakers/auction/adapters/broker"
 	"hotsneakers/auction/adapters/db"
+	auction "hotsneakers/auction/adapters/grpc"
 	"hotsneakers/auction/config"
+	"hotsneakers/auction/core"
 	"hotsneakers/closers"
+	auctionpb "hotsneakers/proto/auction"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -41,7 +51,41 @@ func run(cfg config.Config, log *slog.Logger) error {
 	}
 	defer closers.CloseOrLog(pgRepo.Conn, log)
 
+	// broker adapter
+	brokerClient, err := broker.NewBroker(cfg.NatsAddress)
+	if err != nil {
+		return fmt.Errorf("failed to create broker adapter: %v", err)
+	}
+	defer closers.CloseOrLog(brokerClient, log)
+
+	// service
+	service := core.NewService(log, pgRepo, brokerClient)
+
+	// grpc server
+	listener, err := net.Listen("tcp", cfg.Address)
+	if err != nil {
+		return fmt.Errorf("failed to listen: %v", err)
+	}
+
+	s := grpc.NewServer()
+	auctionpb.RegisterAuctionServiceServer(s, auction.NewServer(service))
+	reflection.Register(s)
+
+	// context for Ctrl-C
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+
+	go func() {
+		<-ctx.Done()
+		log.Debug("shutting down server")
+		s.GracefulStop()
+	}()
+
+	if err := s.Serve(listener); err != nil {
+		return fmt.Errorf("failed to serve: %v", err)
+	}
 	return nil
+
 }
 
 func mustMakeLogger(logLevel string) *slog.Logger {
