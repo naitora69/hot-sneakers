@@ -1,0 +1,23 @@
+name: Check
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v6 # скачивает код из репы в runner
+
+      - name: Setup go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+          cache: true 
+
+      - name: Install protoc
+        run: sudo apt install -y protobuf-compiler
+
+      - name: Get Tools
+        run: make tools
+        
+      - name: Lint
+        run: make lint
