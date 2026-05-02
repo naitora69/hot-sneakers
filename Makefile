@@ -1,4 +1,4 @@
-container_runtime := $(shell which podman || which docker)
+container_runtime := $(shell which docker || which podman )
 
 $(info using ${container_runtime})
 
@@ -10,7 +10,7 @@ down:
 
 clean:
 	${container_runtime} compose down -v
-	
+
 run-tests: 
 	${container_runtime} run --rm --network=host tests:latest
 
