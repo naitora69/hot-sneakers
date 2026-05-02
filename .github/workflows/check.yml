@@ -36,7 +36,7 @@ jobs:
 
       - name: Build
         run: |
-          cd sneaker-services
+          cd sneakers-services
           go build ./...
   test:
     needs: build
