@@ -85,7 +85,6 @@ func run(cfg config.Config, log *slog.Logger) error {
 		return fmt.Errorf("failed to serve: %v", err)
 	}
 	return nil
-
 }
 
 func mustMakeLogger(logLevel string) *slog.Logger {

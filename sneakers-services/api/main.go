@@ -5,17 +5,18 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log/slog"
+	"net"
+	"net/http"
+	"os"
+	"os/signal"
+
 	"hotsneakers/api/adapters/auction"
 	"hotsneakers/api/adapters/catalog"
 	"hotsneakers/api/adapters/rest"
 	"hotsneakers/api/config"
 	"hotsneakers/api/core"
 	"hotsneakers/closers"
-	"log/slog"
-	"net"
-	"net/http"
-	"os"
-	"os/signal"
 )
 
 func main() {
@@ -51,6 +52,12 @@ func run(cfg *config.Config, log *slog.Logger) error {
 	mux := http.NewServeMux()
 
 	mux.Handle("GET /api/ping", rest.NewPingHandler(log, map[string]core.Pinger{"catalog": catalogClient, "auction": auctionClient}))
+	mux.Handle("GET /api/auction", rest.NewGetAuctionDetails(log, auctionClient))
+	mux.Handle("POST /api/auction/create", rest.NewCreateAuction(log, auctionClient))
+	mux.Handle("POST /api/auction/bid", rest.NewMakeBid(log, auctionClient))
+	mux.Handle("GET /api/sneakers", rest.NewGetAllSneakers(log, catalogClient))
+	mux.Handle("GET /api/sneaker", rest.NewGetSneakerByID(log, catalogClient))
+	mux.Handle("POST /api/sneaker/create", rest.NewCreateSneaker(log, catalogClient))
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()

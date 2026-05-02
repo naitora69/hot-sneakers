@@ -5,11 +5,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"hotsneakers/notification/config"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
+
+	"hotsneakers/notification/config"
 
 	"github.com/gorilla/websocket"
 	"github.com/nats-io/nats.go"
@@ -48,7 +49,12 @@ func newWebSocketHandler(nc *nats.Conn, log *slog.Logger) http.HandlerFunc {
 			log.Error("error when upgrade websocket", "error", err)
 			return
 		}
-		defer ws.Close()
+		defer func() {
+			err := ws.Close()
+			if err != nil {
+				log.Error("fatal error when close websocket", "error", err)
+			}
+		}()
 
 		writeChan := make(chan []byte, 10)
 		ctx, cancel := context.WithCancel(r.Context())
@@ -67,7 +73,10 @@ func newWebSocketHandler(nc *nats.Conn, log *slog.Logger) http.HandlerFunc {
 			return
 		}
 
-		defer sub.Unsubscribe()
+		defer func() {
+			err := sub.Unsubscribe()
+			log.Error("fatal error when unsubscribe", "error", err)
+		}()
 
 		go func() {
 			for data := range writeChan {

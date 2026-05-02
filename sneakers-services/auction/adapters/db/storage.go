@@ -63,7 +63,7 @@ func (db DB) GetAuctionByID(ctx context.Context, id int) (core.Auction, error) {
 
 	var dbRes auctionDTO
 
-	err := db.Conn.SelectContext(ctx, &dbRes, query, id)
+	err := db.Conn.GetContext(ctx, &dbRes, query, id)
 	if err != nil {
 		return core.Auction{}, err
 	}
@@ -113,7 +113,7 @@ func (db DB) PlaceBid(ctx context.Context, bid core.Bid) error {
 		return fmt.Errorf("error when update auction: %w", err)
 	}
 
-	insertBidQuery := `INSERT INTO bids (auction_id, user_id, amount) VALUES ($1, $2, $2)`
+	insertBidQuery := `INSERT INTO bids (auction_id, user_id, amount) VALUES ($1, $2, $3)`
 
 	_, err = tx.ExecContext(ctx, insertBidQuery, bid.AuctionID, bid.UserID, bid.Amount)
 	if err != nil {
@@ -128,7 +128,7 @@ func (db DB) GetBidsByAuctionID(ctx context.Context, auctionID int) ([]core.Bid,
 
 	var dbBids []bidDTO
 
-	err := db.Conn.QueryRowContext(ctx, query, auctionID).Scan(&dbBids)
+	err := db.Conn.SelectContext(ctx, &dbBids, query, auctionID)
 	if err != nil {
 		return []core.Bid{}, err
 	}

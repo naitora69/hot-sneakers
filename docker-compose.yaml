@@ -146,6 +146,13 @@ services:
       - redisinsight:/data
     depends_on:
       - redis
+  tests:
+    image: tests:latest
+    build: tests
+    container_name: tests
+    restart: "no"
+    entrypoint: "true"
+
 
 volumes:
   postgres:
