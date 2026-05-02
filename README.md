@@ -9,4 +9,4 @@
 <img width="1551" height="1014" alt="image" src="https://github.com/user-attachments/assets/63868169-640b-4ebf-a951-0c7d9fd7d251" />
 
 # Описание архитектуры приложения
-<img width="1408" height="1322" alt="hotsneakers" src="https://github.com/user-attachments/assets/2e446f46-0dde-4956-816c-5d6a038b4e53" />
+<img width="1254" height="1254" alt="cheme" src="https://github.com/user-attachments/assets/4b58d08a-a194-483b-9683-8ae1af7c5070" />
