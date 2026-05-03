@@ -67,15 +67,13 @@ REST API Gateway, принимающий HTTP-запросы от клиенто
 
 Внедрил:
 
-- **JWT middleware**
-- **Rate Limiting**
 - **Graceful Shutdown**
 - **Health Check**
 - маппинг gRPC ошибок в HTTP-статусы
 
 Для защиты системы под высокой нагрузкой применил паттерны:
 
-- **Proxy**
+- **Decorator**
 - **Semaphore**
 - **Fan-out / Fan-in**
 
